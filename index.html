@@ -1,506 +1,1233 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>vetorIA — Automações Inteligentes com IA</title>
-<meta name="description" content="Agência referência em automações com Inteligência Artificial. Eliminamos tarefas repetitivas e turbinamos a performance operacional das empresas.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
---dark:#060B1A;
---dark-2:#0C1628;
---dark-3:#131D35;
---dark-4:#1C2848;
---blue:#3D6FE8;
---blue-light:#6A9FFF;
---purple:#8B42C8;
---magenta:#C8449A;
---orange:#F5943A;
---white:#FFFFFF;
---off-white:#F4F7FF;
---gray-50:#EEF2FF;
---gray-100:#DDE3F5;
---gray-200:#BBC6E0;
---gray-400:#7882A8;
---gray-600:#4E5A78;
---gray-800:#1A2038;
---gradient:linear-gradient(135deg,#3D6FE8 0%,#8B42C8 50%,#F5943A 100%);
---gradient-text:linear-gradient(135deg,#3D6FE8 0%,#C8449A 60%,#F5943A 100%);
---radius:12px;
---radius-lg:20px;
---shadow-sm:0 1px 3px rgba(0,0,0,0.15);
---shadow-md:0 4px 20px rgba(0,0,0,0.2);
---shadow-lg:0 12px 40px rgba(0,0,0,0.25);
---font-body:'Inter',sans-serif;
---font-display:'Space Grotesk',sans-serif;
-}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--font-body);color:var(--gray-800);background:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+<html lang="pt-BR" class="scroll-smooth" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">vetorIA — Automação Inteligente</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" vid="7">
+    
+    
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="8"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css" vid="9">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/fill/style.css" vid="10">
 
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes pulse-dot{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
-@keyframes glow-pulse{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.05)}}
-@keyframes spin-cw{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes spin-ccw{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
-.animate{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.16,1,.3,1)}
-.animate.visible{opacity:1;transform:translateY(0)}
-.animate-delay-1{transition-delay:.1s}
-.animate-delay-2{transition-delay:.2s}
-.animate-delay-3{transition-delay:.3s}
-.animate-delay-4{transition-delay:.4s}
+    <script vid="11">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#020510',
+                        primary: '#00D4FF',
+                        secondary: '#7B2FBE',
+                        accent: '#FF6B35',
+                        text: {
+                            body: '#E8EEFF',
+                            muted: 'rgba(200,210,255,0.55)'
+                        }
+                    },
+                    fontFamily: {
+                        space: ['"Space Grotesk"', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-primary': 'linear-gradient(135deg, #00D4FF 0%, #7B2FBE 100%)',
+                        'gradient-text': 'linear-gradient(90deg, #00D4FF 0%, #7B2FBE 100%)',
+                        'gradient-hover': 'linear-gradient(135deg, #00bce6 0%, #6826a3 100%)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 15s linear infinite',
+                        'spin-reverse': 'spin 20s linear infinite reverse',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 2s infinite',
+                        'float-delayed-2': 'float 6s ease-in-out 4s infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 10px rgba(0,212,255,0.6))' },
+                            '50%': { opacity: 0.7, filter: 'drop-shadow(0 0 2px rgba(0,212,255,0.2))' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 0;transition:all .3s ease}
-nav.scrolled{background:rgba(6,11,26,.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 1px 0 rgba(255,255,255,.06);padding:.9rem 0}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
-.nav-logo img{height:38px;filter:drop-shadow(0 0 10px rgba(61,111,232,.35))}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{text-decoration:none;color:rgba(255,255,255,.6);font-size:.875rem;font-weight:500;letter-spacing:.015em;transition:color .2s}
-.nav-links a:hover{color:var(--white)}
-.nav-cta{background:var(--gradient);color:white;border:none;padding:.6rem 1.5rem;border-radius:50px;font-family:var(--font-body);font-size:.84rem;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(61,111,232,.45)}
-.menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:.5rem}
-.menu-toggle span{display:block;width:22px;height:2px;background:rgba(255,255,255,.75);margin:5px 0;transition:.3s}
+    <style vid="12">
+        :root {
+            --bg: #020510;
+            --primary: #00D4FF;
+            --secondary: #7B2FBE;
+            --accent: #FF6B35;
+        }
 
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2rem 6rem;position:relative;overflow:hidden;background:var(--dark)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(61,111,232,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(61,111,232,.055) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
-.hero-orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(90px)}
-.hero-orb.o1{width:700px;height:700px;background:radial-gradient(circle,rgba(61,111,232,.2),transparent 70%);top:-25%;right:-8%}
-.hero-orb.o2{width:500px;height:500px;background:radial-gradient(circle,rgba(139,66,200,.15),transparent 70%);bottom:-15%;left:-8%}
-.hero-orb.o3{width:350px;height:350px;background:radial-gradient(circle,rgba(245,148,58,.1),transparent 70%);top:25%;left:38%}
-.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(61,111,232,.1);border:1px solid rgba(61,111,232,.25);padding:.4rem 1rem;border-radius:50px;font-size:.74rem;color:var(--blue-light);font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp .8s ease both}
-.hero-badge::before{content:'';width:6px;height:6px;background:var(--blue-light);border-radius:50%;animation:pulse-dot 2s ease infinite;flex-shrink:0}
-.hero h1{font-family:var(--font-display);font-size:3.7rem;font-weight:700;line-height:1.08;color:var(--white);margin-bottom:1.5rem;animation:fadeUp .8s ease .1s both;letter-spacing:-.02em}
-.hero h1 .accent{background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:1.1rem;color:rgba(255,255,255,.58);line-height:1.8;max-width:460px;margin-bottom:2.5rem;font-weight:400;animation:fadeUp .8s ease .2s both}
-.hero-buttons{display:flex;gap:1rem;animation:fadeUp .8s ease .3s both}
-.btn-primary{background:var(--gradient);color:white;border:none;padding:.875rem 2rem;border-radius:50px;font-family:var(--font-body);font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:.5rem}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(61,111,232,.45)}
-.btn-secondary{background:rgba(255,255,255,.06);color:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.13);padding:.875rem 2rem;border-radius:50px;font-family:var(--font-body);font-size:.95rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all .2s;backdrop-filter:blur(10px)}
-.btn-secondary:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.22);color:white}
+        body {
+            background-color: var(--bg);
+            color: #E8EEFF;
+            overflow-x: hidden;
+            cursor: none; 
+        }
 
-/* HERO LOGO DISPLAY */
-.hero-visual{position:relative;animation:fadeIn 1s ease .4s both;display:flex;align-items:center;justify-content:center}
-.hero-logo-display{position:relative;display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1;max-width:400px;margin:0 auto}
-.logo-ring{position:absolute;border-radius:50%;border:1px solid transparent}
-.logo-ring.r1{width:100%;height:100%;border-color:rgba(61,111,232,.18) transparent transparent rgba(61,111,232,.1);animation:spin-cw 22s linear infinite}
-.logo-ring.r2{width:78%;height:78%;border-color:transparent rgba(139,66,200,.22) rgba(139,66,200,.12) transparent;animation:spin-ccw 16s linear infinite}
-.logo-ring.r3{width:57%;height:57%;border-color:rgba(245,148,58,.18) transparent transparent rgba(245,148,58,.1);animation:spin-cw 12s linear infinite}
-.logo-glow{position:absolute;width:52%;height:52%;border-radius:50%;background:radial-gradient(circle,rgba(61,111,232,.4) 0%,rgba(139,66,200,.25) 45%,transparent 70%);animation:glow-pulse 3.5s ease infinite;filter:blur(22px)}
-.hero-logo-img{position:relative;z-index:2;width:50%;animation:float 5.5s ease infinite;filter:drop-shadow(0 0 28px rgba(61,111,232,.55)) drop-shadow(0 0 55px rgba(139,66,200,.3))}
-.logo-chip{position:absolute;background:rgba(10,18,40,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.55rem .9rem;font-size:.76rem;font-weight:600;color:rgba(255,255,255,.85);z-index:3;white-space:nowrap}
-.logo-chip .chip-num{font-size:1.05rem;font-weight:700;display:block;line-height:1.25;background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.logo-chip.c1{top:8%;right:2%;animation:float 5s ease infinite}
-.logo-chip.c2{bottom:14%;left:2%;animation:float 4.5s ease 2s infinite}
-.logo-chip.c3{top:44%;right:-4%;font-size:.7rem;animation:float 6s ease 1s infinite}
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(123, 47, 190, 0.5);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
 
-/* SECTION BASE */
-section{padding:6rem 2rem}
-.section-inner{max-width:1200px;margin:0 auto}
-.section-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
-.section-label::before{content:'';width:20px;height:2px;background:var(--gradient);flex-shrink:0}
-.light .section-label{color:var(--blue)}
-.dark-section .section-label{color:var(--blue-light)}
-.section-title{font-family:var(--font-display);font-size:2.6rem;font-weight:700;line-height:1.12;margin-bottom:1rem;letter-spacing:-.02em}
-.light .section-title{color:var(--gray-800)}
-.dark-section .section-title{color:var(--white)}
-.section-subtitle{font-size:1.05rem;max-width:550px;line-height:1.8;font-weight:400}
-.light .section-subtitle{color:var(--gray-600)}
-.dark-section .section-subtitle{color:rgba(255,255,255,.52)}
+        
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-/* SERVIÇOS */
-.services{background:var(--off-white)}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.service-card{background:var(--white);border-radius:var(--radius-lg);padding:2rem;border:1px solid var(--gray-100);transition:all .35s ease;cursor:default;position:relative;overflow:hidden}
-.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);opacity:0;transition:.35s}
-.service-card:hover{transform:translateY(-5px);box-shadow:0 16px 50px rgba(61,111,232,.11);border-color:rgba(61,111,232,.18)}
-.service-card:hover::after{opacity:1}
-.service-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.25rem}
-.service-icon.blue{background:rgba(61,111,232,.08)}
-.service-icon.purple{background:rgba(139,66,200,.08)}
-.service-icon.orange{background:rgba(245,148,58,.09)}
-.service-card h3{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--gray-800);margin-bottom:.6rem}
-.service-card p{font-size:.875rem;color:var(--gray-600);line-height:1.65}
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
 
-/* SOBRE */
-.about{background:var(--dark-2);position:relative;overflow:hidden}
-.about-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(61,111,232,.042) 1px,transparent 1px),linear-gradient(90deg,rgba(61,111,232,.042) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
-.about-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(139,66,200,.22),transparent 70%);width:550px;height:550px;right:-12%;top:-25%;filter:blur(90px);pointer-events:none}
-.about-orb2{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(61,111,232,.14),transparent 70%);width:400px;height:400px;left:-8%;bottom:-20%;filter:blur(80px);pointer-events:none}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem;position:relative;z-index:1}
-.about-image{position:relative}
-.about-logo-wrap{width:100%;border-radius:var(--radius-lg);aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
-.about-logo-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(61,111,232,.08) 0%,rgba(139,66,200,.07) 50%,rgba(245,148,58,.04) 100%)}
-.about-logo-wrap::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(61,111,232,.08) 1px,transparent 1px);background-size:30px 30px}
-.about-logo-wrap img{width:65%;position:relative;z-index:1;filter:drop-shadow(0 0 30px rgba(61,111,232,.45)) drop-shadow(0 0 60px rgba(139,66,200,.25));animation:float 6s ease infinite}
-.about-stat{position:absolute;background:rgba(10,18,40,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:1rem 1.25rem}
-.about-stat.s1{bottom:-1rem;right:-1rem}
-.about-stat.s2{top:2rem;left:-1.5rem}
-.about-stat .num{font-size:1.5rem;font-weight:700;background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.about-stat .label{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:.15rem}
-.about-text h3{font-family:var(--font-display);font-size:1.95rem;font-weight:700;color:var(--white);margin-bottom:1.25rem;line-height:1.2;letter-spacing:-.02em}
-.about-text p{color:rgba(255,255,255,.58);line-height:1.85;margin-bottom:1rem;font-size:.95rem}
-.about-values{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.75rem}
-.value-tag{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:.4rem 1rem;border-radius:50px;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.65);transition:all .2s;cursor:default}
-.value-tag:hover{background:rgba(61,111,232,.14);border-color:rgba(61,111,232,.3);color:var(--blue-light)}
+        .glass-nav {
+            background: rgba(2, 5, 16, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
 
-/* CASES */
-.cases{background:var(--white)}
-.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.case-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--gray-100);transition:all .3s}
-.case-card:hover{transform:translateY(-4px);box-shadow:0 16px 50px rgba(61,111,232,.12);border-color:rgba(61,111,232,.15)}
-.case-header{padding:1.75rem;color:white;position:relative;min-height:90px;display:flex;flex-direction:column;justify-content:flex-end}
-.case-header.alt1{background:linear-gradient(135deg,#1a2760,#3D6FE8)}
-.case-header.alt2{background:linear-gradient(135deg,#3D6FE8,#8B42C8)}
-.case-header.alt3{background:linear-gradient(135deg,#8B42C8,#F5943A)}
-.case-tag{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.72;margin-bottom:.4rem}
-.case-header h3{font-family:var(--font-display);font-size:1.15rem;font-weight:600}
-.case-body{padding:1.5rem;background:var(--off-white)}
-.case-body p{font-size:.875rem;color:var(--gray-600);line-height:1.65;margin-bottom:1rem}
-.case-metrics{display:flex;gap:1.5rem}
-.case-metric .num{font-size:1.1rem;font-weight:700;background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.case-metric .label{font-size:.67rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;margin-top:.15rem}
+        .glass:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+        }
 
-/* DEPOIMENTOS */
-.testimonials{background:var(--off-white)}
-.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.testimonial-card{background:var(--white);border-radius:var(--radius-lg);padding:2rem;border:1px solid var(--gray-100);position:relative;transition:all .3s;overflow:hidden}
-.testimonial-card::before{content:'"';font-family:var(--font-display);font-size:6rem;background:var(--gradient-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:.15;position:absolute;top:-.5rem;left:1.25rem;line-height:1;font-weight:700}
-.testimonial-card:hover{box-shadow:0 10px 35px rgba(61,111,232,.1);transform:translateY(-3px)}
-.testimonial-card p{font-size:.9rem;color:var(--gray-600);line-height:1.8;margin-bottom:1.5rem;font-style:italic;position:relative;z-index:1}
-.testimonial-author{display:flex;align-items:center;gap:.75rem}
-.testimonial-avatar{width:40px;height:40px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:.82rem;flex-shrink:0}
-.testimonial-info .name{font-family:var(--font-display);font-weight:600;font-size:.85rem;color:var(--gray-800)}
-.testimonial-info .role{font-size:.75rem;color:var(--gray-400);margin-top:.12rem}
+        
+        .glow-hover-cyan:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 10px rgba(0, 212, 255, 0.1);
+        }
+        .glow-hover-purple:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(123, 47, 190, 0.2), inset 0 0 10px rgba(123, 47, 190, 0.1);
+        }
+        .glow-hover-orange:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.2), inset 0 0 10px rgba(255, 107, 53, 0.1);
+        }
 
-/* CONTATO */
-.contact{background:var(--dark);position:relative;overflow:hidden}
-.contact-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(61,111,232,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(61,111,232,.05) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
-.contact-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(61,111,232,.22),transparent 70%);width:600px;height:600px;right:-12%;top:-30%;filter:blur(90px);pointer-events:none}
-.contact-orb2{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(139,66,200,.16),transparent 70%);width:450px;height:450px;left:-8%;bottom:-25%;filter:blur(80px);pointer-events:none}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:3rem;position:relative;z-index:1}
-.contact-info{display:flex;flex-direction:column;gap:2rem}
-.contact-item{display:flex;align-items:flex-start;gap:1rem}
-.contact-icon{width:44px;height:44px;border-radius:12px;background:rgba(61,111,232,.12);border:1px solid rgba(61,111,232,.22);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.contact-item h4{font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.25rem}
-.contact-item p{font-size:.85rem;color:rgba(255,255,255,.45)}
-.contact-item a{color:rgba(255,255,255,.65);text-decoration:none;transition:color .2s}
-.contact-item a:hover{color:var(--blue-light)}
-.contact-form{display:flex;flex-direction:column;gap:.875rem}
-.contact-form input,.contact-form textarea{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:1rem 1.1rem;color:white;font-family:var(--font-body);font-size:.9rem;outline:none;transition:border .2s,background .2s}
-.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,.22)}
-.contact-form input:focus,.contact-form textarea:focus{border-color:rgba(61,111,232,.5);background:rgba(61,111,232,.06)}
-.contact-form textarea{min-height:130px;resize:vertical}
+        
+        .scanlines {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            z-index: 1;
+            opacity: 0.3;
+        }
 
-/* FOOTER */
-footer{background:#030712;padding:2.5rem 2rem;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
-footer p{font-size:.8rem;color:rgba(255,255,255,.28)}
-footer a{color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s}
-footer a:hover{color:var(--blue-light)}
+        
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 10px 2px rgba(0, 212, 255, 0.5);
+            transition: width 0.2s, height 0.2s;
+        }
+        .cursor-outline {
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9998;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        
+        @media (pointer: coarse) {
+            body { cursor: auto; }
+            .cursor-dot, .cursor-outline { display: none; }
+        }
 
-/* RESPONSIVE */
-@media(max-width:968px){
-.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(6,11,26,.97);padding:1.5rem 2rem;flex-direction:column;gap:1.25rem;border-bottom:1px solid rgba(255,255,255,.07)}
-.nav-links.active{display:flex}
-.nav-cta.desktop{display:none}
-.menu-toggle{display:block}
-.hero-inner{grid-template-columns:1fr;text-align:center}
-.hero h1{font-size:2.6rem}
-.hero p{max-width:100%;margin-left:auto;margin-right:auto}
-.hero-buttons{justify-content:center}
-.hero-visual{display:none}
-.services-grid,.cases-grid,.testimonials-grid{grid-template-columns:1fr}
-.about-grid{grid-template-columns:1fr;gap:2rem}
-.about-image{display:none}
-.contact-grid{grid-template-columns:1fr}
-.section-title{font-size:2rem}
-}
-@media(max-width:480px){
-.hero{padding:7rem 1.5rem 4rem}
-section{padding:4rem 1.5rem}
-.hero h1{font-size:2.1rem}
-.hero-buttons{flex-direction:column;align-items:center}
-}
-</style>
+        
+        a:hover ~ .cursor-dot, button:hover ~ .cursor-dot {
+            width: 10px;
+            height: 10px;
+        }
+        a:hover ~ .cursor-outline, button:hover ~ .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        
+        .cursor-blink::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: var(--primary);
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        
+        .chat-msg {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideUpMsg 0.5s forwards;
+        }
+        @keyframes slideUpMsg {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        
+        .bg-animated-gradient {
+            background: linear-gradient(-45deg, #020510, #130a2a, #041a2e, #020510);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
 </head>
-<body>
+<body class="font-inter antialiased selection:bg-primary selection:text-bg" vid="13">
 
-<!-- NAV -->
-<nav id="navbar">
-<div class="nav-inner">
-<a href="#" class="nav-logo">
-<img src="assets/Vetoria 2 Icone transparente.png" alt="vetorIA">
-</a>
-<ul class="nav-links">
-<li><a href="#servicos">Serviços</a></li>
-<li><a href="#sobre">Sobre</a></li>
-<li><a href="#cases">Cases</a></li>
-<li><a href="#depoimentos">Depoimentos</a></li>
-<li><a href="#contato">Contato</a></li>
-</ul>
-<a href="https://wa.me/5511936204649?text=Olá! Quero saber mais sobre automações com IA." class="nav-cta desktop">Fale conosco</a>
-<button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')" aria-label="Menu">
-<span></span><span></span><span></span>
-</button>
-</div>
-</nav>
+    
+    <div class="cursor-dot" id="cursor-dot" vid="14"></div>
+    <div class="cursor-outline" id="cursor-outline" vid="15"></div>
 
-<!-- HERO -->
-<section class="hero" id="inicio">
-<div class="hero-grid"></div>
-<div class="hero-orb o1"></div>
-<div class="hero-orb o2"></div>
-<div class="hero-orb o3"></div>
-<div class="hero-inner">
-<div class="hero-content">
-<div class="hero-badge">Agência de Automações com Inteligência Artificial</div>
-<h1>Seu atendimento<br>no <span class="accent">piloto automático</span></h1>
-<p>Criamos agentes de IA que atendem, agendam e vendem pelo WhatsApp — enquanto você foca no que importa: crescer.</p>
-<div class="hero-buttons">
-<a href="https://wa.me/5511936204649?text=Olá! Quero saber mais sobre automações com IA." class="btn-primary">Quero automatizar →</a>
-<a href="#cases" class="btn-secondary">Ver resultados</a>
-</div>
-</div>
-<div class="hero-visual">
-<div class="hero-logo-display">
-<div class="logo-ring r1"></div>
-<div class="logo-ring r2"></div>
-<div class="logo-ring r3"></div>
-<div class="logo-glow"></div>
-<img class="hero-logo-img" src="assets/Vetoria Icone transparente.png" alt="vetorIA">
-<div class="logo-chip c1"><span class="chip-num">24/7</span>Disponível</div>
-<div class="logo-chip c2"><span class="chip-num">2s</span>Resposta</div>
-<div class="logo-chip c3">⚡ IA em produção</div>
-</div>
-</div>
-</div>
-</section>
+    
+    <nav id="navbar" class="fixed w-full z-50 top-0 transition-all duration-300 py-4 border-b border-transparent" vid="16">
+        <div class="container mx-auto px-6 max-w-7xl flex items-center justify-between" vid="17">
+            
+            <a href="#" class="flex items-center z-50" vid="18">
+                <img src="assets/vetoria-novo-transparente.png" alt="vetorIA Logo" class="h-[38px] drop-shadow-[0_0_10px_rgba(0,212,255,0.4)]" onerror="this.onerror=null; this.outerHTML='<div class=\'font-space font-bold text-2xl tracking-widest drop-shadow-[0_0_10px_rgba(0,212,255,0.4)]\'><span class=\'text-white lowercase\'>vetor</span><span class=\'text-primary uppercase\'>IA</span></div>'" vid="19">
+            </a>
 
-<!-- SERVIÇOS -->
-<section class="services light" id="servicos">
-<div class="section-inner">
-<div class="section-label">O que fazemos</div>
-<h2 class="section-title animate">Soluções que trabalham por você</h2>
-<p class="section-subtitle animate animate-delay-1">Cada automação é projetada sob medida para o fluxo do seu negócio.</p>
-<div class="services-grid">
-<div class="service-card animate animate-delay-1">
-<div class="service-icon blue">🤖</div>
-<h3>Agentes de IA no WhatsApp</h3>
-<p>Atendimento inteligente 24h que identifica, agenda, vende e escala para humano quando necessário.</p>
-</div>
-<div class="service-card animate animate-delay-2">
-<div class="service-icon purple">⚙️</div>
-<h3>Automação de Processos</h3>
-<p>Workflows que conectam seus sistemas — CRM, agenda, planilhas — eliminando trabalho manual repetitivo.</p>
-</div>
-<div class="service-card animate animate-delay-3">
-<div class="service-icon orange">📊</div>
-<h3>Integrações sob Medida</h3>
-<p>Conectamos APIs, sistemas e plataformas para que seus dados fluam automaticamente entre ferramentas.</p>
-</div>
-<div class="service-card animate animate-delay-1">
-<div class="service-icon purple">💬</div>
-<h3>Gestão de Atendimento</h3>
-<p>Painel centralizado com histórico completo, distribuição inteligente e métricas de performance.</p>
-</div>
-<div class="service-card animate animate-delay-2">
-<div class="service-icon blue">📅</div>
-<h3>Agendamento Automático</h3>
-<p>Integração direta com seu sistema de agenda — seus clientes marcam consultas sem intervenção humana.</p>
-</div>
-<div class="service-card animate animate-delay-3">
-<div class="service-icon orange">🔔</div>
-<h3>Redução de No-Show</h3>
-<p>Confirmação automática por WhatsApp que reduz faltas em até 40% com templates inteligentes.</p>
-</div>
-</div>
-</div>
-</section>
+            
+            <div class="hidden md:flex items-center gap-8" vid="20">
+                <a href="#solucoes" class="text-text-body hover:text-primary transition-colors text-sm font-medium" vid="21">Soluções</a>
+                <a href="#cases" class="text-text-body hover:text-primary transition-colors text-sm font-medium" vid="22">Cases</a>
+                <a href="#sobre" class="text-text-body hover:text-primary transition-colors text-sm font-medium" vid="23">Sobre</a>
+                <a href="#depoimentos" class="text-text-body hover:text-primary transition-colors text-sm font-medium" vid="24">Depoimentos</a>
+                <a href="#contato" class="text-text-body hover:text-primary transition-colors text-sm font-medium" vid="25">Contato</a>
+            </div>
 
-<!-- SOBRE -->
-<section class="about dark-section" id="sobre">
-<div class="about-bg-grid"></div>
-<div class="about-orb"></div>
-<div class="about-orb2"></div>
-<div class="section-inner">
-<div class="section-label">Sobre a vetorIA</div>
-<div class="about-grid">
-<div class="about-image animate">
-<div class="about-logo-wrap">
-<img src="assets/Vetoria Icone transparente.png" alt="vetorIA">
-</div>
-<div class="about-stat s1"><div class="num">5+</div><div class="label">Projetos em produção</div></div>
-<div class="about-stat s2"><div class="num">100%</div><div class="label">Clientes satisfeitos</div></div>
-</div>
-<div class="about-text animate animate-delay-2">
-<h3>Nascemos para eliminar o trabalho repetitivo e liberar o potencial humano das empresas</h3>
-<p>A vetorIA surgiu de uma constatação simples: empresas perdem horas preciosas — e dinheiro — em tarefas operacionais que podem ser totalmente automatizadas. Atendimentos manuais, agendamentos, cobranças, follow-ups, triagem de leads: tudo isso consome a energia do seu time e limita o crescimento do seu negócio.</p>
-<p>Somos uma agência especializada em automações com Inteligência Artificial, e nossa missão é substituir a mão de obra manual em processos repetitivos por agentes inteligentes que trabalham 24 horas por dia, 7 dias por semana, sem erros e sem pausas. O resultado é direto: redução de custos operacionais, mais velocidade no atendimento e um time focado no que realmente gera valor.</p>
-<div class="about-values">
-<span class="value-tag">WhatsApp API</span>
-<span class="value-tag">Agentes de IA</span>
-<span class="value-tag">n8n</span>
-<span class="value-tag">Integrações API</span>
-<span class="value-tag">Gestão de Atendimento</span>
-</div>
-</div>
-</div>
-</div>
-</section>
+            
+            <a href="https://wa.me/5511936204649?text=Olá! Quero saber mais sobre automações com IA." target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-gradient-primary text-white font-medium text-sm transition-transform hover:scale-105 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] aria-label='Automatizar agora'" vid="26">
+                Automatizar agora
+            </a>
 
-<!-- CASES -->
-<section class="cases light" id="cases">
-<div class="section-inner">
-<div class="section-label">Resultados reais</div>
-<h2 class="section-title animate">Cases de sucesso</h2>
-<p class="section-subtitle animate animate-delay-1">Projetos em produção que geram resultados todos os dias.</p>
-<div class="cases-grid">
-<div class="case-card animate animate-delay-1">
-<div class="case-header alt1">
-<div class="case-tag">Saúde & Beleza</div>
-<h3>RR Prótese Capilar</h3>
-</div>
-<div class="case-body">
-<p>Agente de IA para agendamento via WhatsApp com integração ao Google Calendar. Fila de mensagens inteligente para 3 profissionais com rodízio automático.</p>
-<div class="case-metrics">
-<div class="case-metric"><div class="num">24/7</div><div class="label">Atendimento</div></div>
-<div class="case-metric"><div class="num">3</div><div class="label">Profissionais</div></div>
-</div>
-</div>
-</div>
-<div class="case-card animate animate-delay-2">
-<div class="case-header alt2">
-<div class="case-tag">Varejo</div>
-<h3>AS Phone Store</h3>
-</div>
-<div class="case-body">
-<p>Assistente de vendas com consulta automática de preços e parcelamento via Google Sheets. Escala para vendedor humano quando o cliente demonstra intenção de compra.</p>
-<div class="case-metrics">
-<div class="case-metric"><div class="num">Auto</div><div class="label">Consulta preço</div></div>
-<div class="case-metric"><div class="num">Smart</div><div class="label">Escalação</div></div>
-</div>
-</div>
-</div>
-<div class="case-card animate animate-delay-3">
-<div class="case-header alt3">
-<div class="case-tag">Imobiliário</div>
-<h3>Urban Imóveis</h3>
-</div>
-<div class="case-body">
-<p>Triagem inteligente com rodízio automático de corretores. Labels automáticos para vendas, locação e avaliação com distribuição equitativa de leads.</p>
-<div class="case-metrics">
-<div class="case-metric"><div class="num">Auto</div><div class="label">Rodízio</div></div>
-<div class="case-metric"><div class="num">3</div><div class="label">Categorias</div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+            
+            <button id="mobile-menu-btn" class="md:hidden text-text-body p-2 z-50" aria-label="Menu" vid="27">
+                <i class="ph ph-list text-2xl" id="menu-icon" vid="28"></i>
+            </button>
+        </div>
 
-<!-- DEPOIMENTOS -->
-<section class="testimonials light" id="depoimentos">
-<div class="section-inner">
-<div class="section-label">O que dizem</div>
-<h2 class="section-title animate">Depoimentos</h2>
-<p class="section-subtitle animate animate-delay-1">Quem usa, recomenda.</p>
-<div class="testimonials-grid">
-<div class="testimonial-card animate animate-delay-1">
-<p>O atendimento automatizado mudou completamente a rotina do salão. Não perco mais clientes por demora na resposta — o agente agenda sozinho, 24 horas.</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">RR</div>
-<div class="testimonial-info">
-<div class="name">RR Prótese Capilar</div>
-<div class="role">Saúde & Beleza</div>
-</div>
-</div>
-</div>
-<div class="testimonial-card animate animate-delay-2">
-<p>Meus vendedores só entram na conversa quando o cliente quer fechar negócio. A IA faz toda a consulta de preço e parcelamento antes. Produtividade dobrou.</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">AS</div>
-<div class="testimonial-info">
-<div class="name">AS Phone Store</div>
-<div class="role">Varejo de Eletrônicos</div>
-</div>
-</div>
-</div>
-<div class="testimonial-card animate animate-delay-3">
-<p>A triagem automática com rodízio de corretores organizou completamente nosso atendimento. Cada lead vai pro corretor certo, sem discussão.</p>
-<div class="testimonial-author">
-<div class="testimonial-avatar">UI</div>
-<div class="testimonial-info">
-<div class="name">Urban Imóveis</div>
-<div class="role">Imobiliária</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+        
+        <div id="mobile-menu" class="fixed inset-0 bg-bg/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" vid="29">
+            <div class="flex flex-col items-center gap-8 text-xl" vid="30">
+                <a href="#solucoes" class="mobile-link text-text-body hover:text-primary font-space" vid="31">Soluções</a>
+                <a href="#cases" class="mobile-link text-text-body hover:text-primary font-space" vid="32">Cases</a>
+                <a href="#sobre" class="mobile-link text-text-body hover:text-primary font-space" vid="33">Sobre</a>
+                <a href="#depoimentos" class="mobile-link text-text-body hover:text-primary font-space" vid="34">Depoimentos</a>
+                <a href="#contato" class="mobile-link text-text-body hover:text-primary font-space" vid="35">Contato</a>
+                <a href="https://wa.me/5511936204649?text=Olá! Quero saber mais sobre automações com IA." class="mt-4 px-8 py-3 rounded-full bg-gradient-primary text-white font-medium shadow-[0_0_20px_rgba(0,212,255,0.3)]" vid="36">
+                    Automatizar agora
+                </a>
+            </div>
+        </div>
+    </nav>
 
-<!-- CONTATO -->
-<section class="contact dark-section" id="contato">
-<div class="contact-bg-grid"></div>
-<div class="contact-orb"></div>
-<div class="contact-orb2"></div>
-<div class="section-inner">
-<div class="section-label">Vamos conversar</div>
-<h2 class="section-title animate">Pronto para automatizar?</h2>
-<p class="section-subtitle animate animate-delay-1">Nos conte sobre seu negócio e receba uma proposta personalizada.</p>
-<div class="contact-grid">
-<div class="contact-info animate animate-delay-2">
-<div class="contact-item">
-<div class="contact-icon">💬</div>
-<div><h4>WhatsApp</h4><p><a href="https://wa.me/5511936204649">Clique para conversar</a></p></div>
-</div>
-<div class="contact-item">
-<div class="contact-icon">📧</div>
-<div><h4>E-mail</h4><p><a href="mailto:emansho@vetor-ia.com">emansho@vetor-ia.com</a></p></div>
-</div>
-<div class="contact-item">
-<div class="contact-icon">📍</div>
-<div><h4>Localização</h4><p>Jundiaí, São Paulo</p></div>
-</div>
-</div>
-<div class="contact-form animate animate-delay-3">
-<input type="text" placeholder="Seu nome" required>
-<input type="email" placeholder="Seu e-mail" required>
-<input type="text" placeholder="Nome da empresa">
-<textarea placeholder="Conte-nos sobre seu projeto..."></textarea>
-<a href="https://wa.me/5511936204649?text=Olá! Vim pelo site e quero saber mais." class="btn-primary">Enviar mensagem →</a>
-</div>
-</div>
-</div>
-</section>
+    
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden" vid="37">
+        
+        <canvas id="particle-canvas" class="absolute inset-0 z-0" vid="38"></canvas>
+        <div class="scanlines" vid="39"></div>
+        
+        
+        <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/80 to-transparent z-0" vid="40"></div>
 
-<!-- FOOTER -->
-<footer>
-<p>© 2026 vetorIA — Automações Inteligentes. Todos os direitos reservados.</p>
-</footer>
+        <div class="container mx-auto px-6 max-w-7xl relative z-10 grid lg:grid-cols-2 gap-12 items-center" vid="41">
+            
+            
+            <div class="flex flex-col items-start gap-6 max-w-2xl" vid="42">
+                
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md reveal" vid="43">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse-glow" vid="44"></span>
+                    <span class="text-primary text-xs font-semibold tracking-wide uppercase" vid="45">IA em produção 24/7</span>
+                </div>
 
-<script>
-const nav=document.getElementById('navbar');
-window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)});
+                
+                <h1 class="font-space font-bold text-5xl md:text-7xl leading-[1.1] tracking-tight reveal reveal-delay-1" vid="46">
+                    Seu negócio no <br vid="47">
+                    <span class="text-gradient" vid="48">piloto automático</span>
+                </h1>
 
-const observer=new IntersectionObserver((entries)=>{
-entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})
-},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
-document.querySelectorAll('.animate').forEach(el=>observer.observe(el));
+                
+                <div class="text-primary text-sm font-semibold tracking-[0.2em] uppercase reveal reveal-delay-2" vid="49">
+                    Automação Inteligente
+                </div>
 
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-a.addEventListener('click',e=>{e.preventDefault();
-const t=document.querySelector(a.getAttribute('href'));
-if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
-</script>
-</body>
-</html>
+                
+                <p class="text-text-muted text-lg md:text-xl min-h-[60px] reveal reveal-delay-2" vid="50">
+                    <span id="typewriter" class="cursor-blink" vid="51"></span>
+                </p>
+
+                
+                <div class="flex flex-col sm:flex-row gap-4 mt-4 reveal reveal-delay-3 w-full sm:w-auto" vid="52">
+                    <a href="#contato" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-primary text-white font-semibold transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] group" vid="53">
+                        Quero automatizar 
+                        <i class="ph ph-arrow-right ml-2 group-hover:translate-x-1 transition-transform" vid="54"></i>
+                    </a>
+                    <a href="#cases" class="inline-flex items-center justify-center px-8 py-4 rounded-full border border-primary text-primary font-semibold hover:bg-primary/10 transition-colors" vid="55">
+                        Ver cases reais
+                    </a>
+                </div>
+            </div>
+
+            
+            <div class="hidden lg:block relative h-[600px] w-full reveal reveal-delay-2" vid="56">
+                
+                <div class="absolute top-10 left-10 glass px-4 py-2 rounded-lg text-xs text-primary font-medium flex items-center gap-2 animate-float" vid="57">
+                    <i class="ph-fill ph-clock" vid="58"></i> 24/7 Ativo
+                </div>
+                <div class="absolute top-40 -right-4 glass px-4 py-2 rounded-lg text-xs text-accent font-medium flex items-center gap-2 animate-float-delayed" vid="59">
+                    <i class="ph-fill ph-lightning" vid="60"></i> &lt; 2s resposta
+                </div>
+                <div class="absolute bottom-32 -left-8 glass px-4 py-2 rounded-lg text-xs text-secondary font-medium flex items-center gap-2 animate-float-delayed-2" vid="61">
+                    <i class="ph-fill ph-robot" vid="62"></i> Zero intervenção humana
+                </div>
+                <div class="absolute bottom-10 right-10 glass px-4 py-2 rounded-lg text-xs text-white font-medium flex items-center gap-2 animate-float" vid="63">
+                    <i class="ph-fill ph-users" vid="64"></i> 4 clientes em produção
+                </div>
+
+                
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[380px] h-[480px] glass rounded-3xl p-4 flex flex-col shadow-2xl border-white/10 overflow-hidden" vid="65">
+                    
+                    <div class="flex items-center gap-3 border-b border-white/10 pb-3 mb-4" vid="66">
+                        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary" vid="67">
+                            <i class="ph-fill ph-robot text-xl" vid="68"></i>
+                        </div>
+                        <div vid="69">
+                            <div class="font-medium text-sm" vid="70">Agente vetorIA</div>
+                            <div class="text-xs text-primary flex items-center gap-1" vid="71">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" vid="72"></span> Online
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col gap-4 overflow-hidden relative" id="chat-simulation" vid="73">
+                        
+                    </div>
+                    
+                    <div class="h-12 rounded-full bg-white/5 border border-white/10 mt-4 flex items-center px-4 text-text-muted text-sm" vid="74">
+                        Mensagem...
+                    </div>
+                </div>
+                
+                
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -z-10 pointer-events-none" vid="75"></div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-24 bg-[#010308] border-y border-white/5 relative z-10" vid="76">
+        <div class="container mx-auto px-6 max-w-7xl" vid="77">
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-24" vid="78">
+                
+                
+                <div class="glass p-8 rounded-3xl reveal border-red-500/10 bg-red-500/5" vid="79">
+                    <h2 class="font-space text-2xl md:text-3xl font-bold mb-8 text-white" vid="80">Você ainda faz isso <span class="text-red-400" vid="81">manualmente?</span></h2>
+                    <ul class="space-y-4" vid="82">
+                        <li class="flex items-start gap-3" vid="83">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl shrink-0 mt-0.5" vid="84"></i>
+                            <span class="text-text-muted" vid="85">Responder as mesmas perguntas no WhatsApp todos os dias</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="86">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl shrink-0 mt-0.5" vid="87"></i>
+                            <span class="text-text-muted" vid="88">Agendar consultas e reuniões pelo celular</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="89">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl shrink-0 mt-0.5" vid="90"></i>
+                            <span class="text-text-muted" vid="91">Encaminhar leads para o vendedor certo</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="92">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl shrink-0 mt-0.5" vid="93"></i>
+                            <span class="text-text-muted" vid="94">Confirmar presença e reduzir no-show</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="95">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl shrink-0 mt-0.5" vid="96"></i>
+                            <span class="text-text-muted" vid="97">Cobrar clientes por mensagem</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="98">
+                            <i class="ph-fill ph-x-circle text-red-500 text-xl shrink-0 mt-0.5" vid="99"></i>
+                            <span class="text-text-muted" vid="100">Triagem de atendimento feita por humano</span>
+                        </li>
+                    </ul>
+                </div>
+
+                
+                <div class="glass p-8 rounded-3xl reveal reveal-delay-1 border-primary/20 bg-primary/5 glow-hover-cyan" vid="101">
+                    <h2 class="font-space text-2xl md:text-3xl font-bold mb-8 text-white" vid="102">A vetorIA <span class="text-primary" vid="103">resolve tudo isso.</span></h2>
+                    <ul class="space-y-4" vid="104">
+                        <li class="flex items-start gap-3" vid="105">
+                            <i class="ph-fill ph-check-circle text-primary text-xl shrink-0 mt-0.5 filter drop-shadow-[0_0_5px_rgba(0,212,255,0.5)]" vid="106"></i>
+                            <span class="text-text-body font-medium" vid="107">Agente de IA responde, agenda e vende automaticamente</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="108">
+                            <i class="ph-fill ph-check-circle text-primary text-xl shrink-0 mt-0.5 filter drop-shadow-[0_0_5px_rgba(0,212,255,0.5)]" vid="109"></i>
+                            <span class="text-text-body font-medium" vid="110">Integração direta com sua agenda e CRM</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="111">
+                            <i class="ph-fill ph-check-circle text-primary text-xl shrink-0 mt-0.5 filter drop-shadow-[0_0_5px_rgba(0,212,255,0.5)]" vid="112"></i>
+                            <span class="text-text-body font-medium" vid="113">Rodízio inteligente de atendentes e vendedores</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="114">
+                            <i class="ph-fill ph-check-circle text-primary text-xl shrink-0 mt-0.5 filter drop-shadow-[0_0_5px_rgba(0,212,255,0.5)]" vid="115"></i>
+                            <span class="text-text-body font-medium" vid="116">Confirmações automáticas por WhatsApp</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="117">
+                            <i class="ph-fill ph-check-circle text-primary text-xl shrink-0 mt-0.5 filter drop-shadow-[0_0_5px_rgba(0,212,255,0.5)]" vid="118"></i>
+                            <span class="text-text-body font-medium" vid="119">Régua de cobrança 100% automatizada</span>
+                        </li>
+                        <li class="flex items-start gap-3" vid="120">
+                            <i class="ph-fill ph-check-circle text-primary text-xl shrink-0 mt-0.5 filter drop-shadow-[0_0_5px_rgba(0,212,255,0.5)]" vid="121"></i>
+                            <span class="text-text-body font-medium" vid="122">Triagem com IA — humano só nos momentos certos</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="solucoes" class="py-24 relative z-10" vid="123">
+        <div class="container mx-auto px-6 max-w-7xl" vid="124">
+            <div class="text-center mb-16 reveal" vid="125">
+                <h2 class="font-space text-4xl md:text-5xl font-bold" vid="126">O que <span class="text-gradient" vid="127">automatizamos</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" vid="128">
+                
+                
+                <div class="glass p-8 rounded-2xl reveal glow-hover-cyan group cursor-none" vid="129">
+                    <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 border border-primary/20 group-hover:shadow-[0_0_15px_rgba(0,212,255,0.4)] transition-shadow" vid="130">
+                        <i class="ph ph-chat-circle text-3xl text-primary drop-shadow-[0_0_8px_rgba(0,212,255,0.8)]" vid="131"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3 text-white" vid="132">Atendimento no WhatsApp</h3>
+                    <p class="text-text-muted text-sm leading-relaxed" vid="133">
+                        Agente de IA que responde, tira dúvidas, coleta dados e escala para humano com contexto completo. Disponível 24 horas.
+                    </p>
+                </div>
+
+                
+                <div class="glass p-8 rounded-2xl reveal reveal-delay-1 glow-hover-purple group cursor-none" vid="134">
+                    <div class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6 border border-secondary/20 group-hover:shadow-[0_0_15px_rgba(123,47,190,0.4)] transition-shadow" vid="135">
+                        <i class="ph ph-calendar-blank text-3xl text-secondary drop-shadow-[0_0_8px_rgba(123,47,190,0.8)]" vid="136"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3 text-white" vid="137">Agendamento Automático</h3>
+                    <p class="text-text-muted text-sm leading-relaxed" vid="138">
+                        Integração direta com Google Calendar, Prodoctor e outros sistemas. O cliente agenda, remarca e cancela sem precisar falar com ninguém.
+                    </p>
+                </div>
+
+                
+                <div class="glass p-8 rounded-2xl reveal reveal-delay-2 glow-hover-orange group cursor-none" vid="139">
+                    <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 border border-accent/20 group-hover:shadow-[0_0_15px_rgba(255,107,53,0.4)] transition-shadow" vid="140">
+                        <i class="ph ph-shuffle text-3xl text-accent drop-shadow-[0_0_8px_rgba(255,107,53,0.8)]" vid="141"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3 text-white" vid="142">Triagem e Rodízio de Leads</h3>
+                    <p class="text-text-muted text-sm leading-relaxed" vid="143">
+                        IA identifica o perfil do lead e distribui automaticamente para o time certo — vendas, suporte ou especialista.
+                    </p>
+                </div>
+
+                
+                <div class="glass p-8 rounded-2xl reveal glow-hover-cyan group cursor-none" vid="144">
+                    <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 border border-primary/20 group-hover:shadow-[0_0_15px_rgba(0,212,255,0.4)] transition-shadow" vid="145">
+                        <i class="ph ph-gear text-3xl text-primary drop-shadow-[0_0_8px_rgba(0,212,255,0.8)]" vid="146"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3 text-white" vid="147">Automação de Processos</h3>
+                    <p class="text-text-muted text-sm leading-relaxed" vid="148">
+                        Conectamos seus sistemas — CRM, planilhas, APIs — em fluxos que eliminam trabalho manual repetitivo do seu time.
+                    </p>
+                </div>
+
+                
+                <div class="glass p-8 rounded-2xl reveal reveal-delay-1 glow-hover-purple group cursor-none" vid="149">
+                    <div class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6 border border-secondary/20 group-hover:shadow-[0_0_15px_rgba(123,47,190,0.4)] transition-shadow" vid="150">
+                        <i class="ph ph-bell text-3xl text-secondary drop-shadow-[0_0_8px_rgba(123,47,190,0.8)]" vid="151"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3 text-white" vid="152">Redução de No-Show</h3>
+                    <p class="text-text-muted text-sm leading-relaxed" vid="153">
+                        Confirmações automáticas por WhatsApp que reduzem faltas em até 40%. Lembrete, confirmação e reagendamento sem intervenção.
+                    </p>
+                </div>
+
+                
+                <div class="glass p-8 rounded-2xl reveal reveal-delay-2 glow-hover-orange group cursor-none" vid="154">
+                    <div class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 border border-accent/20 group-hover:shadow-[0_0_15px_rgba(255,107,53,0.4)] transition-shadow" vid="155">
+                        <i class="ph ph-plugs text-3xl text-accent drop-shadow-[0_0_8px_rgba(255,107,53,0.8)]" vid="156"></i>
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3 text-white" vid="157">Integrações sob Medida</h3>
+                    <p class="text-text-muted text-sm leading-relaxed" vid="158">
+                        Qualquer sistema com API pode ser integrado. Seu negócio conectado e operando em sincronia total.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="cases" class="py-24 bg-animated-gradient border-y border-white/5 relative z-10" vid="159">
+        <div class="container mx-auto px-6 max-w-7xl" vid="160">
+            <div class="text-center mb-16 reveal" vid="161">
+                <h2 class="font-space text-4xl md:text-5xl font-bold mb-4" vid="162">Resultados em <span class="text-white" vid="163">produção</span></h2>
+                <p class="text-primary text-lg font-medium tracking-wide" vid="164">Não são demos. São clientes reais, rodando agora.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8" vid="165">
+                
+                
+                <div class="bg-white rounded-3xl overflow-hidden reveal hover:-translate-y-2 transition-transform duration-300" vid="166">
+                    <div class="h-32 p-8 flex flex-col justify-end relative" style="background: linear-gradient(135deg, #1a2760 0%, #3D6FE8 100%);" vid="167">
+                        <span class="absolute top-6 right-6 bg-white/20 backdrop-blur text-white text-xs px-3 py-1 rounded-full font-medium" vid="168">Saúde &amp; Beleza</span>
+                        <h3 class="font-space text-2xl font-bold text-white" vid="169">RR Prótese Capilar</h3>
+                    </div>
+                    <div class="p-8" vid="170">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium" vid="171">
+                            Agente de IA para agendamento via WhatsApp integrado ao Google Calendar. Fila inteligente para 3 profissionais com rodízio automático — sem secretária, sem perder cliente.
+                        </p>
+                        <div class="flex flex-wrap gap-2" vid="172">
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="173"><i class="ph ph-clock mr-1" vid="174"></i>24/7 Atendimento</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="175"><i class="ph ph-users mr-1" vid="176"></i>3 Profissionais</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="177"><i class="ph ph-check-circle mr-1" vid="178"></i>Zero no-show manual</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="bg-white rounded-3xl overflow-hidden reveal reveal-delay-1 hover:-translate-y-2 transition-transform duration-300" vid="179">
+                    <div class="h-32 p-8 flex flex-col justify-end relative" style="background: linear-gradient(135deg, #3D6FE8 0%, #8B42C8 100%);" vid="180">
+                        <span class="absolute top-6 right-6 bg-white/20 backdrop-blur text-white text-xs px-3 py-1 rounded-full font-medium" vid="181">Varejo de Eletrônicos</span>
+                        <h3 class="font-space text-2xl font-bold text-white" vid="182">AS Phone Store</h3>
+                    </div>
+                    <div class="p-8" vid="183">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium" vid="184">
+                            Assistente de vendas com consulta automática de preços e parcelamento via planilha. Só chama o vendedor humano quando o cliente está pronto para comprar.
+                        </p>
+                        <div class="flex flex-wrap gap-2" vid="185">
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="186"><i class="ph ph-magnifying-glass mr-1" vid="187"></i>Consulta automática</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="188"><i class="ph ph-arrows-merge mr-1" vid="189"></i>Escalação inteligente</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="190"><i class="ph ph-trend-up mr-1" vid="191"></i>Produtividade <span class="count-up inline-block" data-target="2" vid="192">0</span>×</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="bg-white rounded-3xl overflow-hidden reveal hover:-translate-y-2 transition-transform duration-300" vid="193">
+                    <div class="h-32 p-8 flex flex-col justify-end relative" style="background: linear-gradient(135deg, #8B42C8 0%, #F5943A 100%);" vid="194">
+                        <span class="absolute top-6 right-6 bg-white/20 backdrop-blur text-white text-xs px-3 py-1 rounded-full font-medium" vid="195">Imobiliário</span>
+                        <h3 class="font-space text-2xl font-bold text-white" vid="196">Urban Imóveis</h3>
+                    </div>
+                    <div class="p-8" vid="197">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium" vid="198">
+                            Triagem automática com rodízio de corretores. Labels por categoria (venda, locação, avaliação) e distribuição equitativa de leads sem conflito entre a equipe.
+                        </p>
+                        <div class="flex flex-wrap gap-2" vid="199">
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="200"><i class="ph ph-arrows-clockwise mr-1" vid="201"></i>Rodízio automático</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="202"><i class="ph ph-tag mr-1" vid="203"></i><span class="count-up inline-block" data-target="3" vid="204">0</span> Categorias</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="205"><i class="ph ph-scales mr-1" vid="206"></i>Distribuição justa</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="bg-white rounded-3xl overflow-hidden reveal reveal-delay-1 hover:-translate-y-2 transition-transform duration-300" vid="207">
+                    <div class="h-32 p-8 flex flex-col justify-end relative" style="background: linear-gradient(135deg, #00D4FF 0%, #7B2FBE 100%);" vid="208">
+                        <span class="absolute top-6 right-6 bg-white/20 backdrop-blur text-white text-xs px-3 py-1 rounded-full font-medium" vid="209">Saúde — Oftalmologia</span>
+                        <h3 class="font-space text-2xl font-bold text-white" vid="210">Vista Clinic</h3>
+                    </div>
+                    <div class="p-8" vid="211">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium" vid="212">
+                            Agente de IA no WhatsApp integrado ao CRM Prodoctor. Cadastra pacientes, agenda, remarca e cancela consultas sem qualquer intervenção da recepção nos fluxos padrão.
+                        </p>
+                        <div class="flex flex-wrap gap-2" vid="213">
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="214"><i class="ph ph-database mr-1" vid="215"></i>CRM integrado</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="216"><i class="ph ph-desktop mr-1" vid="217"></i>Recepção automatizada</span>
+                            <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-md font-semibold border border-slate-200" vid="218"><i class="ph ph-map-pin mr-1" vid="219"></i>São José dos Campos</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-24 relative z-10" vid="220">
+        <div class="container mx-auto px-6 max-w-7xl" vid="221">
+            <div class="text-center mb-20 reveal" vid="222">
+                <h2 class="font-space text-4xl md:text-5xl font-bold" vid="223">Como funciona na <span class="text-gradient" vid="224">prática</span></h2>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between relative" vid="225">
+                
+                <div class="hidden md:block absolute top-[40px] left-0 w-full h-[1px] bg-gradient-to-r from-primary via-secondary to-accent opacity-30 z-0" vid="226"></div>
+
+                
+                <div class="flex flex-col items-center md:items-start text-center md:text-left flex-1 relative z-10 mb-12 md:mb-0 px-4 reveal" vid="227">
+                    <div class="w-20 h-20 rounded-full bg-bg border-2 border-primary flex items-center justify-center font-space text-3xl font-bold text-primary shadow-[0_0_20px_rgba(0,212,255,0.3)] mb-6 mx-auto md:mx-0" vid="228">
+                        01
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3" vid="229">Diagnóstico</h3>
+                    <p class="text-text-muted text-sm" vid="230">Entendemos seus processos, gargalos e oportunidades de automação em uma reunião de <span class="count-up inline-block" data-target="30" vid="231">0</span> minutos.</p>
+                </div>
+
+                
+                <div class="flex flex-col items-center md:items-start text-center md:text-left flex-1 relative z-10 mb-12 md:mb-0 px-4 reveal reveal-delay-1" vid="232">
+                    <div class="w-20 h-20 rounded-full bg-bg border-2 border-[#3b82f6] flex items-center justify-center font-space text-3xl font-bold text-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.3)] mb-6 mx-auto md:mx-0" vid="233">
+                        02
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3" vid="234">Arquitetura</h3>
+                    <p class="text-text-muted text-sm" vid="235">Projetamos o fluxo ideal: agentes, integrações, regras de escalonamento e KPIs.</p>
+                </div>
+
+                
+                <div class="flex flex-col items-center md:items-start text-center md:text-left flex-1 relative z-10 mb-12 md:mb-0 px-4 reveal reveal-delay-2" vid="236">
+                    <div class="w-20 h-20 rounded-full bg-bg border-2 border-secondary flex items-center justify-center font-space text-3xl font-bold text-secondary shadow-[0_0_20px_rgba(123,47,190,0.3)] mb-6 mx-auto md:mx-0" vid="237">
+                        03
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3" vid="238">Implementação</h3>
+                    <p class="text-text-muted text-sm" vid="239">Desenvolvemos, testamos e colocamos em produção em média <span class="count-up inline-block" data-target="7" vid="240">0</span> dias úteis.</p>
+                </div>
+
+                
+                <div class="flex flex-col items-center md:items-start text-center md:text-left flex-1 relative z-10 px-4 reveal reveal-delay-3" vid="241">
+                    <div class="w-20 h-20 rounded-full bg-bg border-2 border-accent flex items-center justify-center font-space text-3xl font-bold text-accent shadow-[0_0_20px_rgba(255,107,53,0.3)] mb-6 mx-auto md:mx-0" vid="242">
+                        04
+                    </div>
+                    <h3 class="font-space text-xl font-bold mb-3" vid="243">Operação Contínua</h3>
+                    <p class="text-text-muted text-sm" vid="244">Monitoramento, ajustes e evolução constante. A automação melhora com o tempo.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="sobre" class="py-24 bg-[#010308] border-y border-white/5 relative z-10 overflow-hidden" vid="245">
+        <div class="container mx-auto px-6 max-w-7xl" vid="246">
+            <div class="grid lg:grid-cols-2 gap-16 items-center" vid="247">
+                
+                
+                <div class="reveal" vid="248">
+                    <h2 class="font-space text-3xl md:text-4xl font-bold leading-tight mb-8" vid="249">
+                        Nascemos para eliminar o trabalho que <span class="text-primary" vid="250">não precisa de humano</span>
+                    </h2>
+                    <div class="space-y-6 text-text-muted text-base md:text-lg" vid="251">
+                        <p vid="252">
+                            A vetorIA surgiu de uma constatação simples: empresas perdem horas preciosas em tarefas que a IA já sabe fazer melhor.
+                        </p>
+                        <p vid="253">
+                            Somos uma agência especializada em Automação Inteligente, com foco em WhatsApp — o canal onde seus clientes já estão. Mas nossa capacidade vai além: automatizamos qualquer processo operacional que consome tempo do seu time.
+                        </p>
+                        <p class="font-medium text-white border-l-2 border-primary pl-4" vid="254">
+                            Cada projeto é construído sob medida. Nada de templates genéricos.
+                        </p>
+                    </div>
+                    <div class="mt-8 flex items-center gap-4 border-t border-white/10 pt-8" vid="255">
+                        <div class="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center font-space font-bold text-white text-xl" vid="256">
+                            E
+                        </div>
+                        <div vid="257">
+                            <div class="font-bold text-white" vid="258">Eduardo Mansho</div>
+                            <div class="text-primary text-sm" vid="259">Gestor de Automações</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="relative h-[400px] md:h-[500px] flex items-center justify-center reveal reveal-delay-1" vid="260">
+                    
+                    <div class="relative z-20 w-32 h-32 rounded-full bg-bg border border-white/10 glass flex items-center justify-center shadow-[0_0_30px_rgba(0,212,255,0.2)]" vid="261">
+                         <img src="assets/vetoria-novo-transparente.png" alt="vetorIA" class="w-20" onerror="this.onerror=null; this.outerHTML='<span class=\'font-space font-bold text-xl text-white\'>v<span class=\'text-primary\'>IA</span></span>'" vid="262">
+                    </div>
+
+                    
+                    <div class="absolute w-[250px] h-[250px] md:w-[350px] md:h-[350px] border border-dashed border-primary/20 rounded-full animate-spin-slow flex items-center justify-center" vid="263">
+                        <div class="absolute -top-4 bg-bg glass border border-primary/30 px-3 py-1 rounded-md text-xs text-primary font-medium" style="transform: rotate(0deg) translate(0, 0) rotate(0deg);" vid="264">n8n</div>
+                        <div class="absolute -bottom-4 bg-bg glass border border-secondary/30 px-3 py-1 rounded-md text-xs text-secondary font-medium" style="transform: rotate(0deg) translate(0, 0) rotate(0deg);" vid="265">OpenAI</div>
+                    </div>
+
+                    
+                    <div class="absolute w-[350px] h-[350px] md:w-[500px] md:h-[500px] border border-solid border-white/5 rounded-full animate-spin-reverse flex items-center justify-center" vid="266">
+                        <div class="absolute -left-6 bg-bg glass border border-[#25D366]/30 px-3 py-1 rounded-md text-xs text-[#25D366] font-medium" vid="267">WhatsApp API</div>
+                        <div class="absolute -right-6 bg-bg glass border border-accent/30 px-3 py-1 rounded-md text-xs text-accent font-medium" vid="268">Prodoctor</div>
+                        <div class="absolute top-10 right-10 bg-bg glass border border-[#4285F4]/30 px-3 py-1 rounded-md text-xs text-[#4285F4] font-medium" vid="269">Google Calendar</div>
+                        <div class="absolute bottom-10 left-10 bg-bg glass border border-[#1f93ff]/30 px-3 py-1 rounded-md text-xs text-[#1f93ff] font-medium" vid="270">Chatwoot</div>
+                    </div>
+                    
+                    
+                    <div class="absolute w-64 h-64 bg-primary/10 rounded-full blur-[80px] z-0 pointer-events-none" vid="271"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="depoimentos" class="py-24 relative z-10" vid="272">
+        <div class="container mx-auto px-6 max-w-7xl" vid="273">
+            <div class="text-center mb-16 reveal" vid="274">
+                <h2 class="font-space text-4xl md:text-5xl font-bold" vid="275">Quem automatizou, <span class="text-gradient" vid="276">não volta atrás.</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8" vid="277">
+                
+                
+                <div class="glass p-8 rounded-3xl relative reveal" vid="278">
+                    <i class="ph-fill ph-quotes text-6xl absolute top-6 right-6 text-primary/20" vid="279"></i>
+                    <p class="text-text-body text-lg leading-relaxed mb-8 relative z-10 italic" vid="280">
+                        "O atendimento automatizado mudou completamente a rotina. Não perco mais clientes por demora na resposta — o agente agenda sozinho, 24 horas por dia."
+                    </p>
+                    <div class="border-t border-white/10 pt-4" vid="281">
+                        <div class="font-bold text-white" vid="282">RR Prótese Capilar</div>
+                        <div class="text-primary text-sm" vid="283">Saúde &amp; Beleza</div>
+                    </div>
+                </div>
+
+                
+                <div class="glass p-8 rounded-3xl relative reveal reveal-delay-1" vid="284">
+                    <i class="ph-fill ph-quotes text-6xl absolute top-6 right-6 text-secondary/20" vid="285"></i>
+                    <p class="text-text-body text-lg leading-relaxed mb-8 relative z-10 italic" vid="286">
+                        "Meus vendedores só entram quando o cliente quer fechar. A IA faz toda a consulta de preço e parcelamento antes. A produtividade dobrou."
+                    </p>
+                    <div class="border-t border-white/10 pt-4" vid="287">
+                        <div class="font-bold text-white" vid="288">AS Phone Store</div>
+                        <div class="text-secondary text-sm" vid="289">Varejo de Eletrônicos</div>
+                    </div>
+                </div>
+
+                
+                <div class="glass p-8 rounded-3xl relative reveal reveal-delay-2" vid="290">
+                    <i class="ph-fill ph-quotes text-6xl absolute top-6 right-6 text-accent/20" vid="291"></i>
+                    <p class="text-text-body text-lg leading-relaxed mb-8 relative z-10 italic" vid="292">
+                        "A triagem com rodízio automático organizou completamente nosso atendimento. Cada lead vai pro corretor certo, sem discussão interna."
+                    </p>
+                    <div class="border-t border-white/10 pt-4" vid="293">
+                        <div class="font-bold text-white" vid="294">Urban Imóveis</div>
+                        <div class="text-accent text-sm" vid="295">Imobiliária</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-24 bg-gradient-primary relative overflow-hidden flex items-center justify-center text-center z-10" vid="296">
+        
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] [background-size:20px_20px] pointer-events-none" vid="297"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 max-w-4xl reveal" vid="298">
+            <h2 class="font-space text-4xl md:text-5xl font-bold text-white mb-6" vid="299">
+                Pronto para colocar sua operação no piloto automático?
+            </h2>
+            <p class="text-white/90 text-lg md:text-xl mb-10 max-w-2xl mx-auto" vid="300">
+                Uma conversa de <span class="count-up font-bold text-white" data-target="30" vid="301">0</span> minutos já é suficiente para identificar onde a IA pode trabalhar por você.
+            </p>
+            <a href="https://wa.me/5511936204649?text=Olá! Vim pelo site e quero automatizar minha operação." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-10 py-5 rounded-full bg-white text-[#130a2a] font-bold text-lg hover:scale-105 transition-transform shadow-xl hover:shadow-2xl group" vid="302">
+                Falar com a vetorIA agora
+                <i class="ph ph-arrow-right ml-2 group-hover:translate-x-1 transition-transform" vid="303"></i>
+            </a>
+            <p class="text-white/70 text-sm mt-6 font-medium" vid="304">
+                Sem compromisso. Sem demo genérica. Só o que faz sentido pro seu negócio.
+            </p>
+        </div>
+    </section>
+
+    
+    <section id="contato" class="py-24 relative z-10" vid="305">
+        <div class="container mx-auto px-6 max-w-7xl" vid="306">
+            <div class="grid md:grid-cols-2 gap-16" vid="307">
+                
+                
+                <div class="reveal" vid="308">
+                    <h2 class="font-space text-4xl font-bold mb-8" vid="309">Vamos <span class="text-gradient" vid="310">conversar</span></h2>
+                    <p class="text-text-muted mb-12 text-lg" vid="311">
+                        Preencha o formulário ou chame direto no WhatsApp. Respondemos em minutos.
+                    </p>
+                    
+                    <div class="space-y-6" vid="312">
+                        <a href="https://wa.me/5511936204649" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-4 glass rounded-2xl hover:border-primary/50 transition-colors group cursor-none" vid="313">
+                            <div class="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-colors" vid="314">
+                                <i class="ph-fill ph-whatsapp text-2xl" vid="315"></i>
+                            </div>
+                            <div vid="316">
+                                <div class="text-sm text-text-muted" vid="317">WhatsApp</div>
+                                <div class="font-semibold text-white" vid="318">+55 11 93620-4649</div>
+                            </div>
+                        </a>
+                        
+                        <a href="mailto:emansho@vetor-ia.com" class="flex items-center gap-4 p-4 glass rounded-2xl hover:border-primary/50 transition-colors group cursor-none" vid="319">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors" vid="320">
+                                <i class="ph-fill ph-envelope-simple text-2xl" vid="321"></i>
+                            </div>
+                            <div vid="322">
+                                <div class="text-sm text-text-muted" vid="323">E-mail</div>
+                                <div class="font-semibold text-white" vid="324">emansho@vetor-ia.com</div>
+                            </div>
+                        </a>
+
+                        <div class="flex items-center gap-4 p-4 glass rounded-2xl" vid="325">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white" vid="326">
+                                <i class="ph-fill ph-map-pin text-2xl" vid="327"></i>
+                            </div>
+                            <div vid="328">
+                                <div class="text-sm text-text-muted" vid="329">Localização</div>
+                                <div class="font-semibold text-white" vid="330">Jundiaí, São Paulo</div>
+                                <div class="text-xs text-primary mt-0.5" vid="331">Atendemos todo o Brasil</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="glass p-8 rounded-3xl reveal reveal-delay-1 border-white/10" vid="332">
+                    <form id="contact-form" class="space-y-5" vid="333">
+                        <div vid="334">
+                            <label for="nome" class="block text-sm font-medium text-text-muted mb-1.5" vid="335">Nome completo</label>
+                            <input type="text" id="nome" required="" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors cursor-none" vid="336">
+                        </div>
+                        <div class="grid grid-cols-2 gap-5" vid="337">
+                            <div vid="338">
+                                <label for="email" class="block text-sm font-medium text-text-muted mb-1.5" vid="339">E-mail corporativo</label>
+                                <input type="email" id="email" required="" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors cursor-none" vid="340">
+                            </div>
+                            <div vid="341">
+                                <label for="empresa" class="block text-sm font-medium text-text-muted mb-1.5" vid="342">Empresa</label>
+                                <input type="text" id="empresa" required="" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors cursor-none" vid="343">
+                            </div>
+                        </div>
+                        <div vid="344">
+                            <label for="mensagem" class="block text-sm font-medium text-text-muted mb-1.5" vid="345">Como podemos ajudar?</label>
+                            <textarea id="mensagem" rows="4" required="" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none cursor-none" vid="346"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-primary text-white font-bold text-lg hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-shadow flex items-center justify-center gap-2 cursor-none" vid="347">
+                            Enviar mensagem <i class="ph ph-paper-plane-right" vid="348"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <footer class="border-t border-white/10 bg-bg py-8 z-10 relative" vid="349">
+        <div class="container mx-auto px-6 max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6" vid="350">
+            
+            <div class="opacity-75 grayscale hover:grayscale-0 transition-all duration-300" vid="351">
+                <img src="assets/vetoria-novo-transparente.png" alt="vetorIA" class="h-[32px]" onerror="this.onerror=null; this.outerHTML='<div class=\'font-space font-bold text-lg tracking-widest\'><span class=\'text-white lowercase\'>vetor</span><span class=\'text-primary uppercase\'>IA</span></div>'" vid="352">
+            </div>
+
+            
+            <div class="flex items-center gap-6" vid="353">
+                <a href="#solucoes" class="text-text-muted hover:text-white transition-colors text-sm" vid="354">Soluções</a>
+                <a href="#cases" class="text-text-muted hover:text-white transition-colors text-sm" vid="355">Cases</a>
+                <a href="#sobre" class="text-text-muted hover:text-white transition-colors text-sm" vid="356">Sobre</a>
+            </div>
+
+            
+            <div class="text-text-muted text-sm" vid="357">
+                © <span id="year" vid="358">2026</span> vetorIA — Automação Inteligente
+            </div>
+        </div>
+    </footer>
+
+    
+    <script vid="359">
+        
+        document.getElementById('year').textContent = new Date().getFullYear() > 2026 ? new Date().getFullYear() : '2026';
+
+        
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        let cursorVisible = true;
+        let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        if (!isTouchDevice) {
+            window.addEventListener('mousemove', (e) => {
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+                
+                
+                setTimeout(() => {
+                    cursorOutline.style.left = `${e.clientX}px`;
+                    cursorOutline.style.top = `${e.clientY}px`;
+                }, 50);
+            });
+
+            
+            document.querySelectorAll('a, button, input, textarea, .cursor-none').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorOutline.style.backgroundColor = 'rgba(0, 212, 255, 0.1)';
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorOutline.style.backgroundColor = 'transparent';
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+            });
+        }
+
+        
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        
+        if (!isTouchDevice) {
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+            window.addEventListener('mouseout', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 212, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+
+                
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let maxDistance = 150;
+                    let force = (maxDistance - distance) / maxDistance;
+                    let directionX = forceDirectionX * force * this.density;
+                    let directionY = forceDirectionY * force * this.density;
+
+                    if (distance < maxDistance) {
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    }
+                }
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 15000;
+            
+            if(numberOfParticles > 100) numberOfParticles = 100; 
+            for (let i = 0; i < numberOfParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                
+                for (let j = i; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${0.15 - distance/100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        resizeCanvas();
+        animateParticles();
+
+        
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav');
+                navbar.classList.remove('border-transparent', 'py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('glass-nav');
+                navbar.classList.add('border-transparent', 'py-4');
+                navbar.classList.remove('py-2');
+            }
+        });
+
+        
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                menuIcon.classList.remove('ph-list');
+                menuIcon.classList.add('ph-x');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                menuIcon.classList.add('ph-list');
+                menuIcon.classList.remove('ph-x');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(isMenuOpen) toggleMenu();
+            });
+        });
+
+        
+        const phrases = [
+            "Automatizamos o WhatsApp da sua empresa.",
+            "Criamos agentes de IA que vendem enquanto você dorme.",
+            "Eliminamos tarefas repetitivas com Inteligência Artificial."
+        ];
+        const typewriterEl = document.getElementById('typewriter');
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingDelay = 100;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typewriterEl.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typingDelay = 30; 
+            } else {
+                typewriterEl.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typingDelay = 80;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typingDelay = 2000; 
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typingDelay = 500; 
+            }
+
+            setTimeout(type, typingDelay);
+        }
+        
+        setTimeout(type, 1500); 
+
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    
+                    const counters = entry.target.querySelectorAll('.count-up');
+                    if(entry.target.classList.contains('count-up')) {
+                        startCounter(entry.target);
+                    }
+                    counters.forEach(counter => startCounter(counter));
+
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .count-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        function startCounter(el) {
+            const target = parseInt(el.getAttribute('data-target'));
+            const duration = 2000; 
+            const step = 20; 
+            const increment = target / (duration / step);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    el.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(current);
+                }
+            }, step);
+        }
+
+        
+        const chatContainer = document.getElementById('chat-simulation');
+        const chatScript = [
+            { sender: 'user', text: 'Olá! Queria saber o preço da consulta.' },
+            { sender: 'bot', text: 'Olá! 👋 Tudo bem? Sou o assistente virtual da clínica. A consulta está R$ 350.', delay: 1000 },
+            { sender: 'bot', text: 'Gostaria de ver os horários disponíveis para essa semana?', delay: 800 },
+            { sender: 'user', text: 'Sim, por favor.' },
+            { sender: 'bot', text: 'Temos vaga na Terça às 14h ou Quinta às 09h. Qual prefere?', delay: 1200 },
+            { sender: 'user', text: 'Terça 14h' },
+            { sender: 'bot', text: 'Perfeito! ✅ Agendamento confirmado para Terça às 14h. Já enviei para o calendário do doutor.', delay: 1000 }
+        ];
+
+        let msgIndex = 0;
+
+        function addMessage() {
+            if (!chatContainer) return;
+            if (msgIndex >= chatScript.length) {
+                
+                setTimeout(() => {
+                    chatContainer.innerHTML = '';
+                    msgIndex = 0;
+                    addMessage();
+                }, 3000);
+                return;
+            }
+
+            const msg = chatScript[msgIndex];
+            const div = document.createElement('div');
+            div.className = `chat-msg max-w-[85%] rounded-2xl p-3 text-sm ${msg.sender === 'bot' ? 'bg-white/10 text-white self-start rounded-tl-none border border-white/5' : 'bg-primary text-[#020510] self-end rounded-tr-none font-medium'}`;
+            div.textContent = msg.text;
+            
+            
+            setTimeout(() => {
+                chatContainer.appendChild(div);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                msgIndex++;
+                addMessage();
+            }, msg.sender === 'user' ? 1500 : (msg.delay || 1000));
+        }
+
+        
+        setTimeout(addMessage, 2000);
+
+        
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const empresa = document.getElementById('empresa').value;
+            const mensagem = document.getElementById('mensagem').value;
+            
+            const text = `Olá! Meu nome é ${nome} da empresa ${empresa}. ${mensagem}`;
+            const encodedText = encodeURIComponent(text);
+            const wppUrl = `https://wa.me/5511936204649?text=${encodedText}`;
+            
+            window.open(wppUrl, '_blank');
+        });
+
+    </script>
+
+</body></html>
