@@ -2,6 +2,11 @@
     <meta charset="UTF-8" vid="2">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
     <title vid="4">vetorIA — Automação Inteligente</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicons/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="assets/favicons/favicon-512x512.png">
     
     
     <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
@@ -274,6 +279,102 @@
         /* CRM checkmarks: legibilidade em ambos os modos */
         #crm .flex.items-center.gap-3 { color: #e8eeff !important; }
         html.light-theme #crm .flex.items-center.gap-3 { color: #0c1020 !important; }
+
+        /* ===== TASK FLOW VISUALIZATION (#sobre) ===== */
+        .task-flow-container {
+            position: relative; width: 100%; height: 100%;
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .flow-abs-layer { position: absolute; inset: 0; pointer-events: none; z-index: 8; }
+        .flow-guide {
+            position: absolute; left: 50%; top: 8%; bottom: 8%; width: 1px;
+            transform: translateX(-50%);
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,212,255,0.12) 25%, rgba(0,212,255,0.22) 50%, rgba(0,212,255,0.12) 75%, transparent 100%);
+            pointer-events: none;
+        }
+        .flow-zone-label {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: rgba(200,210,255,0.38); white-space: nowrap;
+            display: flex; align-items: center; gap: 7px; z-index: 5;
+        }
+        .flow-zone-top { top: 10px; }
+        .flow-zone-bottom { bottom: 10px; }
+        .flow-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+        .flow-dot-red   { background: #FF6B35; box-shadow: 0 0 8px rgba(255,107,53,0.7); }
+        .flow-dot-green { background: #22C55E; box-shadow: 0 0 8px rgba(34,197,94,0.7); }
+        .flow-processor {
+            position: relative; z-index: 10;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            padding: 20px 28px;
+            background: rgba(2,5,16,0.95);
+            border: 1px solid rgba(0,212,255,0.3); border-radius: 18px;
+            box-shadow: 0 0 30px rgba(0,212,255,0.18), 0 0 80px rgba(0,212,255,0.05);
+            transition: box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .flow-processor.flash {
+            box-shadow: 0 0 55px rgba(0,212,255,0.8), 0 0 140px rgba(0,212,255,0.35);
+            border-color: rgba(0,212,255,0.9);
+        }
+        .flow-processor-ring {
+            position: absolute; inset: -7px; border-radius: 24px;
+            border: 1px solid rgba(0,212,255,0.12);
+            animation: proc-ring-pulse 3s ease-in-out infinite;
+        }
+        @keyframes proc-ring-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50%       { opacity: 0.15; transform: scale(1.05); }
+        }
+        .flow-processor-label {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+            letter-spacing: 0.09em; text-transform: uppercase; color: rgba(0,212,255,0.55);
+        }
+        .flow-task-chip {
+            position: absolute; display: flex; align-items: center; gap: 7px;
+            background: rgba(2,5,16,0.88); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 999px; padding: 5px 13px; font-size: 0.7rem;
+            color: rgba(200,210,255,0.82); white-space: nowrap; pointer-events: none;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+        .flow-task-chip i { font-size: 0.78rem; color: rgba(0,212,255,0.65); flex-shrink: 0; }
+        .flow-resolved-chip {
+            position: absolute; display: flex; align-items: center; gap: 7px;
+            background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.28);
+            border-radius: 999px; padding: 5px 13px; font-size: 0.7rem;
+            color: rgba(34,197,94,0.88); white-space: nowrap; pointer-events: none;
+            box-shadow: 0 0 15px rgba(34,197,94,0.12);
+        }
+        .flow-resolved-chip i { font-size: 0.82rem; color: #22C55E; flex-shrink: 0; }
+        @keyframes task-fall {
+            0%   { opacity: 0; transform: translate(-50%, -16px); }
+            9%   { opacity: 1; }
+            91%  { opacity: 1; }
+            100% { opacity: 0; transform: translate(-50%, var(--fall-dist)); }
+        }
+        @keyframes resolved-float {
+            0%   { opacity: 0; transform: translate(-50%, 0) scale(0.8); }
+            22%  { opacity: 1; transform: translate(-50%, 0) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, 65px) scale(0.94); }
+        }
+        /* Light theme overrides */
+        html.light-theme .flow-task-chip {
+            background: rgba(240,244,255,0.95) !important; border-color: rgba(0,0,0,0.1) !important;
+            color: rgba(8,11,24,0.75) !important;
+        }
+        html.light-theme .flow-task-chip i { color: rgba(0,110,135,0.7) !important; }
+        html.light-theme .flow-processor {
+            background: rgba(240,244,255,0.97) !important; border-color: rgba(0,110,135,0.35) !important;
+            box-shadow: 0 0 30px rgba(0,110,135,0.18) !important;
+        }
+        html.light-theme .flow-processor.flash { box-shadow: 0 0 55px rgba(0,110,135,0.6), 0 0 140px rgba(0,110,135,0.25) !important; }
+        html.light-theme .flow-processor-label { color: rgba(0,110,135,0.65) !important; }
+        html.light-theme .flow-processor-ring { border-color: rgba(0,110,135,0.15) !important; }
+        html.light-theme .flow-guide {
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,110,135,0.1) 25%, rgba(0,110,135,0.2) 50%, rgba(0,110,135,0.1) 75%, transparent 100%) !important;
+        }
+        html.light-theme .flow-zone-label { color: rgba(8,11,24,0.35) !important; }
+        html.light-theme .flow-resolved-chip { background: rgba(34,197,94,0.06) !important; border-color: rgba(34,197,94,0.3) !important; }
     </style>
 </head>
 <body class="font-body antialiased relative" vid="12">
@@ -876,40 +977,41 @@
                     </div>
                 </div>
 
-                
-                <div class="relative h-[400px] md:h-[600px] flex items-center justify-center reveal delay-200" vid="379">
-                    <div class="orbit-container scale-75 md:scale-100" vid="380">
-                        
-                        <div class="absolute z-10 glass p-4 rounded-2xl border-primary/30 bg-base shadow-[0_0_35px_rgba(0,212,255,0.3)]" vid="381">
-                            <img src="assets/vetoria-novo-logo-transparente.png" alt="vetorIA" class="w-20 drop-shadow-[0_0_12px_rgba(0,212,255,0.7)]"
-                                 onerror="this.onerror=null;this.outerHTML='<span class=\'font-display font-bold text-2xl text-white\'>vetor<span class=\'text-primary\'>IA</span></span>'">
+
+                <div class="relative h-[400px] md:h-[600px] flex items-center justify-center reveal delay-200">
+                    <div id="task-flow-vis" class="task-flow-container">
+
+                        <!-- Background guide line -->
+                        <div class="flow-guide"></div>
+
+                        <!-- Top label -->
+                        <div class="flow-zone-label flow-zone-top">
+                            <span class="flow-dot flow-dot-red"></span>
+                            Trabalho operacional
                         </div>
 
-                        
-                        <div class="orbit orbit-dashed orbit-1" vid="384">
-                            <div class="orbit-item" style="top: 0; left: 50%; margin-left: -20px; margin-top: -12px;" vid="385">n8n</div>
-                            <div class="orbit-item" style="bottom: 0; left: 50%; margin-left: -30px; margin-bottom: -12px;" vid="386">OpenAI</div>
-                            <div class="orbit-item" style="left: 0; top: 50%; margin-top: -12px; margin-left: -25px;" vid="387">Claude</div>
-                            <div class="orbit-item" style="right: 0; top: 50%; margin-top: -12px; margin-right: -40px;" vid="388">ElevenLabs</div>
+                        <!-- Falling tasks layer (JS controlled) -->
+                        <div id="flow-tasks-layer" class="flow-abs-layer"></div>
+
+                        <!-- Central AI Processor -->
+                        <div id="flow-processor" class="flow-processor">
+                            <div class="flow-processor-ring"></div>
+                            <img src="assets/vetoria-novo-logo-transparente.png" alt="vetorIA"
+                                 style="width:64px;filter:drop-shadow(0 0 12px rgba(0,212,255,0.7))"
+                                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span style="display:none;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.25rem;color:white">vetor<span style="color:#00D4FF">IA</span></span>
+                            <div class="flow-processor-label">Automação Inteligente</div>
                         </div>
 
-                        
-                        <div class="orbit orbit-2 border-white/20 border" vid="389">
-                            <div class="orbit-item" style="top: 15%; left: 15%;" vid="390">WhatsApp API</div>
-                            <div class="orbit-item" style="bottom: 15%; right: 15%;" vid="391">Evolution API</div>
-                            <div class="orbit-item" style="bottom: 15%; left: 15%;" vid="392">Google Calendar</div>
-                            <div class="orbit-item" style="top: 15%; right: 15%;" vid="393">Chatwoot</div>
+                        <!-- Resolved items layer (JS controlled) -->
+                        <div id="flow-resolved-layer" class="flow-abs-layer"></div>
+
+                        <!-- Bottom label -->
+                        <div class="flow-zone-label flow-zone-bottom">
+                            <span class="flow-dot flow-dot-green"></span>
+                            Resolvido pela IA
                         </div>
 
-                        
-                        <div class="orbit orbit-dashed orbit-3 border-white/10" vid="394">
-                            <div class="orbit-item" style="top: -12px; left: 50%; margin-left: -40px;" vid="395">Google Studio</div>
-                            <div class="orbit-item" style="bottom: -12px; left: 50%; margin-left: -30px;" vid="396">Cursor</div>
-                            <div class="orbit-item" style="left: -12px; top: 50%; margin-top: -12px;" vid="397">Maker</div>
-                            <div class="orbit-item" style="right: -40px; top: 30%;" vid="398">Integrações via API</div>
-                            <div class="orbit-item" style="left: 10%; bottom: 10%;" vid="399">Google Drive</div>
-                            <div class="orbit-item" style="right: 10%; bottom: 10%;" vid="400">Make.com</div>
-                        </div>
                     </div>
                 </div>
 
@@ -1492,6 +1594,89 @@
             themeIcon.className = isLight ? 'ph ph-moon' : 'ph ph-sun';
             themeBtn.title = isLight ? 'Alternar para tema escuro' : 'Alternar para tema claro';
         });
+
+        /* ── Task Flow Animation (#sobre) ── */
+        (function initTaskFlow() {
+            const TASKS = [
+                { icon: 'ph-envelope-simple',  label: 'Responder e-mail'    },
+                { icon: 'ph-calendar-blank',   label: 'Agendar reunião'     },
+                { icon: 'ph-table',            label: 'Preencher planilha'  },
+                { icon: 'ph-funnel-simple',    label: 'Triagem de lead'     },
+                { icon: 'ph-paper-plane-tilt', label: 'Enviar relatório'    },
+                { icon: 'ph-chat-circle-text', label: 'Follow-up cliente'   },
+                { icon: 'ph-database',         label: 'Atualizar CRM'       },
+                { icon: 'ph-device-mobile',    label: 'Responder WhatsApp'  },
+                { icon: 'ph-check-square',     label: 'Confirmar pedido'    },
+                { icon: 'ph-magnifying-glass', label: 'Qualificar prospect' },
+            ];
+            const LANE_FRACS = [0.22, 0.50, 0.78];
+            let taskIdx = 0, laneIdx = 0, flowInterval = null;
+
+            function vis()      { return document.getElementById('task-flow-vis'); }
+            function proc()     { return document.getElementById('flow-processor'); }
+            function tLayer()   { return document.getElementById('flow-tasks-layer'); }
+            function rLayer()   { return document.getElementById('flow-resolved-layer'); }
+
+            function spawnTask() {
+                const container = vis(), processor = proc(), tasksLayer = tLayer();
+                if (!container || !processor || !tasksLayer) return;
+
+                const task  = TASKS[taskIdx % TASKS.length]; taskIdx++;
+                const lane  = LANE_FRACS[laneIdx % LANE_FRACS.length]; laneIdx = (laneIdx + 1) % LANE_FRACS.length;
+                const cH    = container.offsetHeight;
+                const cW    = container.offsetWidth;
+                const pH    = processor.offsetHeight;
+                const startY = 35;
+                const endY   = cH / 2 - pH / 2 - 14;
+                const fall   = Math.max(20, endY - startY);
+                const laneX  = lane * cW;
+                const dur    = 2200 + Math.random() * 700;
+
+                const chip = document.createElement('div');
+                chip.className = 'flow-task-chip';
+                chip.innerHTML = `<i class="ph ${task.icon}"></i><span>${task.label}</span>`;
+                chip.style.cssText = `left:${laneX}px;top:${startY}px;--fall-dist:${fall}px;animation:task-fall ${dur}ms cubic-bezier(0.4,0,0.75,0.6) forwards`;
+                tasksLayer.appendChild(chip);
+
+                setTimeout(() => { flashProc(); spawnResolved(task, lane, cW, cH, pH); }, dur * 0.91);
+                setTimeout(() => chip.remove(), dur + 80);
+            }
+
+            function flashProc() {
+                const p = proc(); if (!p) return;
+                p.classList.add('flash');
+                setTimeout(() => p.classList.remove('flash'), 320);
+            }
+
+            function spawnResolved(task, lane, cW, cH, pH) {
+                const resolvedLayer = rLayer(); if (!resolvedLayer) return;
+                const startY = cH / 2 + pH / 2 + 14;
+                const offsetX = (Math.random() - 0.5) * 90;
+                const x = lane * cW + offsetX;
+
+                const chip = document.createElement('div');
+                chip.className = 'flow-resolved-chip';
+                chip.innerHTML = `<i class="ph ph-check-circle-fill"></i><span>${task.label}</span>`;
+                chip.style.cssText = `left:${x}px;top:${startY}px;animation:resolved-float 1.85s ease forwards`;
+                resolvedLayer.appendChild(chip);
+                setTimeout(() => chip.remove(), 1950);
+            }
+
+            function startFlow() {
+                if (flowInterval) return;
+                spawnTask();
+                flowInterval = setInterval(spawnTask, 1500);
+            }
+            function stopFlow() {
+                if (flowInterval) { clearInterval(flowInterval); flowInterval = null; }
+            }
+
+            const sobre = document.getElementById('sobre');
+            if (!sobre) return;
+            new IntersectionObserver((entries) => {
+                entries.forEach(e => e.isIntersecting ? startFlow() : stopFlow());
+            }, { threshold: 0.25 }).observe(sobre);
+        })();
 
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
